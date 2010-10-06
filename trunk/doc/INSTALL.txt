@@ -1,0 +1,120 @@
+saEditHandlers extension 2.1 INSTALL
+
+Introduction
+============
+
+1. License
+   -------
+
+   This software is licensed under the GPL. The complete
+   license agreement is included in the LICENSE file. For more information
+   or questions please contact info@ez.no
+
+2. Requirements
+   ------------
+
+   Tested
+
+   o  eZ Publish version:
+
+      Make sure you use eZ Publish version 4.0 or higher.
+
+   o  PHP version:
+
+      Make sure you have PHP 5.1 or higher.
+
+IMPORTANT!
+==========
+
+
+Getting eZ Publish
+==================
+
+You can download a version of eZ Publish from ez.no, you will find the
+various versions at:
+http://ez.no/ez_publish/download/all_releases/ez_publish_3_stable_releases
+
+NOTE: You will require eZ Publish 4.0 or higher
+
+Information on the installation of eZ Publish can be found at:
+http://ez.no/ez_publish/documentation/installation
+
+
+Installing saEditHandlers
+==============================
+
+1. Copy/unpack the saedithandlers folder into the `extension' directory in the root of your
+   eZ Publish installation.
+
+
+2. Enable the extension in eZ Publish. To do this edit an override file od site.ini. It's
+   usually in the settings/override folder of your eZ Publish instalation. If this file
+   does not exist you can create it. Locate (or add) the block [ExtensionSettings]
+   and add the line:
+
+   ActiveExtensions[]=saedithandlers
+
+   If you run several sites using only one distribution and only some of the
+   sites should use the extension, make the changes in the override file of
+   that siteaccess.
+   E.g root_of_ezpublish/settings/siteaccess/news/site.ini.append(.php)
+   But instead of using ActiveExtensions you must add these lines instead:
+
+   [ExtensionSettings]
+   ActiveAccessExtensions[]=saedithandlers
+
+
+3. Now set the ini settings for the edit handlers. The settings are located in
+
+   saedithandlers/settings/saedithandlers.ini.append.php
+
+   and they consist of the block in the form:
+
+      [HandlerSettings]
+      ActivatedHandlers[]=<handler_name>
+      DebugOutput=enabled|disabled
+      GlobalHandlersDir=<dir_name>
+
+   GlobalHandlersDir sets the directtry where the handlers scripts are located
+   The ActivatesHandlers[] array consists of the names of the edit handles that
+   are activated and for each of it there should be its own block in the saedithandlers.ini:
+
+      [<handler_name>]
+      HandlerDir=<dir_name>
+      Script=<script_name>
+      Class=<class_name>
+      Method=<method_name>
+
+   where you should set the optional handler dir, the name of the script that should be included,
+   the PHP class that contains the method and the method name.
+   For more information on all the settings check saedithandlers-sample.ini in the settings dir.
+   
+   By default the saedithandlers.ini.append.php file contains the settings that come included
+   with the saEditHandlers extension. They just need to be activated.
+   
+   IMPORTANT NOTES:
+   
+      - before activating the handlers that are included with saEditHandlers, check
+      the INI file for each handler.
+	  
+      - because the saedithandlers.ini.append.php file can be updated in newer versions of
+	  saEditHandlers, please use an override of this file for activating edit handlers and
+	  defining your own custom handlers.
+
+
+5. Clear the cache and run the regenerate autoloads php script from commandline:
+
+   $ php bin/php/ezpgenerateautoloads.php --extension
+
+   Which is need to build an array of classes that are used by the autoload system
+   in PHP to load classes. You will need eZ Components availlable to run this script.
+
+
+
+
+Troubleshooting
+===============
+
+   If you have find any problems not handled by this document you can post your question
+   on the saEditHandlers project page.
+   
