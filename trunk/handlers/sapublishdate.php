@@ -41,8 +41,10 @@ class saPublishDate
 			
 			if ($publishdateINI)
 			{
+				$useAllClases = $publishdateINI->variable( 'PublishDateSettings', 'UseAllClasses' );
 				$object_classes = $publishdateINI->variable( 'PublishDateSettings', 'DateClasses' );
-				$modifyDate = in_array($classIdentifier, $object_classes);
+				
+				$modifyDate = $useAllClases || in_array($classIdentifier, $object_classes);
 			}
 			else
 				self::DebugError( "No INI file." );
