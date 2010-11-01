@@ -23,22 +23,12 @@ GlobalHandlersDir=
 
 # Settings for running publish date handler
 [sapublishdate]
-HandlerDir=extension/saedithandlers/handlers
-Script=sapublishdate.php
-Class=saPublishDate
-Method=SetPublishDate
-
-
-# Settings for running publish date handler
-[sapublishdate]
-HandlerDir=extension/saedithandlers/handlers
 Script=sapublishdate.php
 Class=saPublishDate
 Method=SetPublishDate
 
 # Settings for running autolocation handler
 [saautolocation]
-HandlerDir=extension/saedithandlers/handlers
 NewObjectsOnly=true
 Script=saautolocation.php
 Class=saAutoLocation
@@ -46,7 +36,6 @@ Method=AddLocations
 
 # Settings for running relatecreator handler
 [sarelatecreator]
-HandlerDir=extension/saedithandlers/handlers
 NewObjectsOnly=true
 Script=sarelatecreator.php
 Class=saRelateCreator
@@ -54,7 +43,6 @@ Method=Relate
 
 # Settings for running easylocations handler
 [saeasylocations]
-HandlerDir=extension/saedithandlers/handlers
 Script=saeasylocations.php
 Class=saEasyLocations
 Method=ParseLocations
@@ -62,7 +50,6 @@ PassAdditionalParameters=enabled
 
 # Settings for running nlsubscribe handler
 [sanlsubscribe]
-HandlerDir=extension/saedithandlers/handlers
 Script=sanlsubscribe.php
 Class=saNLSubscribe
 Method=SubscribeUserObject

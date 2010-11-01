@@ -1,6 +1,7 @@
 <?php /*
 
 [PublishDateSettings]
+UseAllClasses=false
 #DateClasses[]=article
 #DateClasses[]=news
 

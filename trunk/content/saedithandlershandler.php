@@ -79,8 +79,9 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 								{
 									$handlerDir = $handlersINI->variable( $handlerName, 'HandlerDir' );
 									if (!$handlerDir) $handlerDir = $globalHandlersDir;
-
-									include_once( "$handlerDir/$scriptName" );
+									
+									if ($handlerDir && $scriptName)
+										@include_once( "$handlerDir/$scriptName" );
 
 									if ( method_exists( $className, $methodName ) )
 									{
@@ -92,7 +93,10 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 											call_user_func("$className::$methodName", $contentObjectID, $contentObjectVersion, $params); 
 										}
 										else
-											call_user_func("$className::$methodName", $contentObjectID, $contentObjectVersion); 
+										{
+											call_user_func("$className::$methodName", $contentObjectID, $contentObjectVersion);
+										}
+
 									}
 									else
 										self::DebugError( "Class method '$className::$methodName' doesn't exist." );
