@@ -52,6 +52,8 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 				$globalHandlersDir = $handlersINI->variable( 'HandlerSettings', 'GlobalHandlersDir' );
 				if (!$globalHandlersDir) $globalHandlersDir = 'extension/saedithandlers/handlers';
 
+				$adjustObjectName = $handlersINI->variable( 'HandlerSettings', 'AdjustObjectName' ) == 'true';
+				
 				$isNewObject = $contentObjectVersion == 1;
 				
 				foreach ($handlers as $handlerName)
@@ -95,6 +97,19 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 										else
 										{
 											call_user_func("$className::$methodName", $contentObjectID, $contentObjectVersion);
+										}
+										
+										if ($adjustObjectName)
+										{
+											$object = eZContentObject::fetch( $contentObjectID );
+											if ($object)
+											{
+												$objectClass = eZContentClass::fetch( $object->attribute( 'contentclass_id' ) );
+												if ($objectClass)
+													$object->setName($objectClass->contentObjectName($object));
+												//echo $objectClass->contentObjectName($object);
+												//exit;
+											}
 										}
 
 									}

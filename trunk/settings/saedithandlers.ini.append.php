@@ -20,6 +20,8 @@ DebugOutput=disabled
 # The directory where the handler files are located, if not set, extension/saedithandlers/handlers is used
 GlobalHandlersDir=
 
+# Wether to adjust object name (based on class name pattern) after execution of edit handlers
+AdjustObjectName=true
 
 # Settings for running publish date handler
 [sapublishdate]

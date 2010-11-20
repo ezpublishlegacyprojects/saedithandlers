@@ -59,15 +59,54 @@ class saRelateCreator
 			$relationAtributes = $relatecreatorINI->variable( 'RelateCreatorSettings', 'RelationAttributes' );
 			$defaultRelationAttribute = $relatecreatorINI->variable( 'RelateCreatorSettings', 'DefaultRelationAttribute' );
 			
-			if (isset($dateAttributes[$classIdentifier]))
+			if (isset($relationAttributes[$classIdentifier]))
 				$relationAttributeName = $relationAttributes[$classIdentifier];
 			else
 				$relationAttributeName = $defaultRelationAttribute;
+
+			$nameAtributes = $relatecreatorINI->variable( 'RelateCreatorSettings', 'NameAttributes' );
+			$defaultNameAttribute = $relatecreatorINI->variable( 'RelateCreatorSettings', 'DefaultNameAttribute' );
+			$userAccountAttributeName = $relatecreatorINI->variable( 'RelateCreatorSettings', 'UserAccountAttribute' );
+
+			if (isset($nameAttributes[$classIdentifier]))
+				$nameAttributeName = $nameAttributes[$classIdentifier];
+			else
+				$nameAttributeName = $defaultNameAttribute;
+				
 				
 			if ($relationAttributeName)
 			{
 				$dataMap = $object->DataMap();
 
+				$nameAttribute = $dataMap[$nameAttributeName];
+				
+				if ( $nameAttribute && $userAccountAttributeName && isset($dataMap[$nameAttributeName]) )
+				{
+						
+					$owner = $object->attribute('owner');
+					
+					if ($owner)
+					{
+						$ownerDataMap = $owner->DataMap();
+						$userAccountAttribute = $ownerDataMap[$userAccountAttributeName];
+						
+						if ($userAccountAttribute && $userAccountAttribute->attribute('content'))
+						{
+							$nameValue = $userAccountAttribute->attribute('content')->attribute('login');
+							
+							if ($nameValue)
+							{
+								$nameAttribute->setAttribute('data_text', $nameValue);
+								$nameAttribute->store();
+								$object->store();
+								//echo "#$nameValue#";
+							}
+						}
+
+					}
+					
+				}
+				
 				if (isset($dataMap[$relationAttributeName]))
 				{
 					$relationAttribute = $dataMap[$relationAttributeName];
