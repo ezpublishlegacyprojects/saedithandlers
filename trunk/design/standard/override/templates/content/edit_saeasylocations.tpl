@@ -107,7 +107,7 @@ LocationCollisionHandling=leave
 	{def $location_nodes_ids=array()}
 	{foreach $ini_nodes as $subtree_id => $node_list}
 		{if $main_node.parent.path_array|contains($subtree_id)}
-			{set $location_nodes_ids=$parent_nodes_ids|merge($node_list|explode(';'))}
+			{set $location_nodes_ids=$location_nodes_ids|merge($node_list|explode(';'))}
 		{/if}
 	{/foreach}
 
@@ -122,7 +122,6 @@ LocationCollisionHandling=leave
 	}
 
 {/if}
-
 
 <div class="context-block">
 
@@ -148,7 +147,7 @@ LocationCollisionHandling=leave
 		<th>{$group_label|i18n( 'design/admin/content/edit' )}</th>
 	</tr>
 	
-	{foreach $group_items as $item sequence=array( bglight, bgdark )}
+	{foreach $group_items as $item sequence array( bglight, bgdark ) as $sequence}
 		<tr class="{$sequence}">
 	
 		<td>

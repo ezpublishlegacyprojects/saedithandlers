@@ -50,11 +50,19 @@ Class=saEasyLocations
 Method=ParseLocations
 PassAdditionalParameters=enabled
 
+# Settings for running event duration handler
+[saeventduration]
+Script=saeventduration.php
+Class=saEventDuration
+Method=SetEndDate
+
+
 # Settings for running nlsubscribe handler
 [sanlsubscribe]
 Script=sanlsubscribe.php
 Class=saNLSubscribe
 Method=SubscribeUserObject
+
 
 */ ?>
 
