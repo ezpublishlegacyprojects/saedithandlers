@@ -86,6 +86,8 @@ class saPublishDate
 						$fillEmptyAttributes = $publishdateINI->variable( 'PublishDateSettings', 'FillEmptyAttributes' );
 
 						$doFillEmptyAttribute = ($defaultFillEmptyAttribute  == 'true');
+
+						
 						
 						if (isset($fillEmptyAttributes[$classIdentifier]))
 						{
@@ -107,8 +109,6 @@ class saPublishDate
 					self::DebugError( "Attribute $dateAttributeName doesn't exist in object/class: $contentObjectID/$classIdentifier." );
 				
 			}
-
-//		exit;
 		
 		}
 
