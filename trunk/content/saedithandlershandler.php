@@ -64,7 +64,10 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 
 						self::$CurrentHandlerName = $handlerName;
 
-						$newObjectsOnly = $handlersINI->variable( $handlerName, 'NewObjectsOnly' ) == 'true';
+						if ($handlersINI->hasVariable( $handlerName, 'NewObjectsOnly' ) )
+							$newObjectsOnly = $handlersINI->variable( $handlerName, 'NewObjectsOnly' ) == 'true';
+						else
+							$newObjectsOnly = false;
 
 						if ( ($isNewObject) || !$newObjectsOnly)
 						{
@@ -79,7 +82,11 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 							
 								if ($className && $methodName)
 								{
-									$handlerDir = $handlersINI->variable( $handlerName, 'HandlerDir' );
+									if ( $handlersINI->hasVariable( $handlerName, 'HandlerDir' ) )
+										$handlerDir = $handlersINI->variable( $handlerName, 'HandlerDir' );
+									else
+										$handlerDir = false;
+										
 									if (!$handlerDir) $handlerDir = $globalHandlersDir;
 									
 									if ($handlerDir && $scriptName)
@@ -87,8 +94,11 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 
 									if ( method_exists( $className, $methodName ) )
 									{
-										$passAdditionalParameters = ( $handlersINI->variable( $handlerName, 'PassAdditionalParameters' ) == 'enabled');
-
+										if ( $handlersINI->hasVariable( $handlerName, 'PassAdditionalParameters' ) )
+											$passAdditionalParameters = ( $handlersINI->variable( $handlerName, 'PassAdditionalParameters' ) == 'enabled');
+										else
+											$passAdditionalParameters = false;
+ 
 										if ($passAdditionalParameters)
 										{
 											$params = array('http' => self::$http);

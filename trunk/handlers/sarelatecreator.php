@@ -42,7 +42,10 @@ class saRelateCreator
 			
 			if ($relatecreatorINI)
 			{
-				$objectClasses = $relatecreatorINI->variable( 'RelateCreatorSettings', 'RelateClasses' );
+				if ( $relatecreatorINI->hasVariable( 'RelateCreatorSettings', 'RelateClasses' ) )
+					$objectClasses = $relatecreatorINI->variable( 'RelateCreatorSettings', 'RelateClasses' );
+				else
+					$objectClasses  = false;
 				$relateCreator = $objectClasses && in_array($classIdentifier, $objectClasses);
 			}
 			else
