@@ -74,11 +74,11 @@ class saPublishDate
 				{
 					$dateAttribute = $dataMap[$dateAttributeName];
 
+					$publishedDate = false;
+
 					if ($dateAttribute->attribute('has_content'))
 					{
 						$publishedDate = $dateAttribute->content()->DateTime;
-						$object->setAttribute( 'published', $publishedDate);
-						$object->store();
 					}
 					else
 					{
@@ -87,7 +87,6 @@ class saPublishDate
 
 						$doFillEmptyAttribute = ($defaultFillEmptyAttribute  == 'true');
 
-						
 						
 						if (isset($fillEmptyAttributes[$classIdentifier]))
 						{
@@ -98,11 +97,19 @@ class saPublishDate
 						{
 							// TODO: Staviti ovdje da uzima datum objave, a ne trenutno vrijeme
 							//$object->getAttribute( 'published');
-							$dateAttribute->setAttribute('data_int', time() );
+							$publishedDate = time();
+							$dateAttribute->setAttribute('data_int', $publishedDate );
 							$dateAttribute->store();
 							$object->store();
 						}
 					}
+
+					if ($publishedDate)
+					{
+						$object->setAttribute( 'published', $publishedDate);
+						$object->store();
+					}
+
 
 				}
 				else
