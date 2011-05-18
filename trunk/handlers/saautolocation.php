@@ -71,7 +71,7 @@ class saAutoLocation
 					
 					foreach ($additionalLocations as $locationID)
 					{
-						if (!in_array($location, $parent_nodes))
+						if (!in_array($locationID, $parent_nodes))
 						{
 							$assignedNodes = $object->assignedNodes();
 							$alreadyAssigned = false;

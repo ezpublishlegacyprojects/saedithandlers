@@ -55,8 +55,15 @@ class saEventDuration
 		if ($modifyDate)
 		{
 
-			$startDateAttributes = $INI->variable( 'EventDurationSettings', 'StartDateAttributes' );
-			$defaultStartDateAttribute = $INI->variable( 'EventDurationSettings', 'DefaultStartDateAttribute' );
+			if ( $INI->hasVariable( 'EventDurationSettings', 'StartDateAttributes' ) )
+				$startDateAttributes = $INI->variable( 'EventDurationSettings', 'StartDateAttributes' );
+			else
+				$startDateAttributes = array();
+				
+			if ( $INI->variable( 'EventDurationSettings', 'DefaultStartDateAttribute' ) )
+				$defaultStartDateAttribute = $INI->variable( 'EventDurationSettings', 'DefaultStartDateAttribute' );
+			else
+				$defaultStartDateAttribute = '';
 
 			$endDateAttributes = $INI->variable( 'EventDurationSettings', 'EndDateAttributes' );
 			$defaultEndDateAttribute = $INI->variable( 'EventDurationSettings', 'DefaultEndDateAttribute' );

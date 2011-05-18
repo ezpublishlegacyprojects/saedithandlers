@@ -58,9 +58,16 @@ class saPublishDate
 		if ($modifyDate)
 		{
 
-			$dateAttributes = $publishdateINI->variable( 'PublishDateSettings', 'DateAttributes' );
-			$defaultDateAttribute = $publishdateINI->variable( 'PublishDateSettings', 'DefaultDateAttribute' );
+			if ( $publishdateINI->hasVariable( 'PublishDateSettings', 'DateAttributes' ) )
+				$dateAttributes = $publishdateINI->variable( 'PublishDateSettings', 'DateAttributes' );
+			else
+				$dateAttributes = array();
 			
+			if ( $publishdateINI->hasVariable( 'PublishDateSettings', 'DefaultDateAttribute' ) )
+				$defaultDateAttribute = $publishdateINI->variable( 'PublishDateSettings', 'DefaultDateAttribute' );
+			else 
+				$defaultDateAttribute = '';
+				 
 			if (isset($dateAttributes[$classIdentifier]))
 				$dateAttributeName = $dateAttributes[$classIdentifier];
 			else
@@ -82,9 +89,16 @@ class saPublishDate
 					}
 					else
 					{
-						$defaultFillEmptyAttribute = $publishdateINI->variable( 'PublishDateSettings', 'DefaultFillEmptyAttribute' );
-						$fillEmptyAttributes = $publishdateINI->variable( 'PublishDateSettings', 'FillEmptyAttributes' );
-
+						if ( $publishdateINI->hasVariable( 'PublishDateSettings', 'DefaultFillEmptyAttribute' ) )
+							$defaultFillEmptyAttribute = $publishdateINI->variable( 'PublishDateSettings', 'DefaultFillEmptyAttribute' );
+						else
+							$defaultFillEmptyAttribute = false;
+						
+						if ( $publishdateINI->hasVariable( 'PublishDateSettings', 'FillEmptyAttributes' ) )
+							$fillEmptyAttributes = $publishdateINI->variable( 'PublishDateSettings', 'FillEmptyAttributes' );
+						else
+							$fillEmptyAttributes = array();
+							 
 						$doFillEmptyAttribute = ($defaultFillEmptyAttribute  == 'true');
 
 						
