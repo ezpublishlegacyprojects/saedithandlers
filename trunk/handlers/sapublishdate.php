@@ -44,7 +44,7 @@ class saPublishDate
 
 				$useAllClases = $publishdateINI->variable( 'PublishDateSettings', 'UseAllClasses' ) == 'true';
 				$object_classes = $publishdateINI->variable( 'PublishDateSettings', 'DateClasses' );
-				
+
 				$modifyDate = $useAllClases || in_array($classIdentifier, $object_classes);
 			}
 			else
@@ -101,7 +101,6 @@ class saPublishDate
 							 
 						$doFillEmptyAttribute = ($defaultFillEmptyAttribute  == 'true');
 
-						
 						if (isset($fillEmptyAttributes[$classIdentifier]))
 						{
 							$doFillEmptyAttribute = ($fillEmptyAttributes[$classIdentifier] == 'true');
