@@ -85,7 +85,7 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 							
 								if ($className && $methodName)
 								{
-								
+
 									if ( $handlersINI->hasVariable( $handlerName, 'HandlerDir' ) )
 										$handlerDir = $handlersINI->variable( $handlerName, 'HandlerDir' );
 									else
@@ -94,10 +94,11 @@ class saEditHandlersHandler extends eZContentObjectEditHandler
 									if (!$handlerDir) $handlerDir = $globalHandlersDir;
 									
 									if ($handlerDir && $scriptName)
-										@include_once( "$handlerDir/$scriptName" );
+										include_once( "$handlerDir/$scriptName" );
 
 									if ( method_exists( $className, $methodName ) )
 									{
+									
 										if ( $handlersINI->hasVariable( $handlerName, 'PassAdditionalParameters' ) )
 											$passAdditionalParameters = ( $handlersINI->variable( $handlerName, 'PassAdditionalParameters' ) == 'enabled');
 										else
