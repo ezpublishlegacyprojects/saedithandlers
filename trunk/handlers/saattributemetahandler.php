@@ -27,12 +27,13 @@ class saAttributeMetaHandler extends saEditHandlersBase
 
 	const HANDLER_IDENTIFIER = 'saattributemeta';
 
-	static function setMetaData( $contentObjectID, $contentObjectVersion )
+	static function setMetaData( $contentObjectID, $contentObjectVersion = 0)
 	{
 
 		$object = eZContentObject::fetch( $contentObjectID );
 		$modifyDate = false;
-		
+		$processObject = false;
+
 		if ($object)
 		{
 			$classID = $object->attribute( 'contentclass_id' );
@@ -46,7 +47,6 @@ class saAttributeMetaHandler extends saEditHandlersBase
 
 				$useAllClases = $INI->variable( 'AttributeMetaSettings', 'UseAllClasses' ) == 'true';
 				$objectClasses = $INI->variable( 'AttributeMetaSettings', 'MetaDataClasses' );
-
 				$processObject = $useAllClases || in_array($classIdentifier, $objectClasses);
 			}
 			else
@@ -83,6 +83,7 @@ class saAttributeMetaHandler extends saEditHandlersBase
 
 					if ($tmpClass)
 					{
+
 						$classAttribute = $tmpClass->fetchAttributeByIdentifier($attributeIdentifier);
 					}
 				}

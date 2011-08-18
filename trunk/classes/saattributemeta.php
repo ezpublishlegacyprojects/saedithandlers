@@ -28,9 +28,9 @@ class saAttributeMeta extends eZPersistentObject
 		return self::fetch( NULL, $conds ); 
 	}	
 
-	static function storeMeta($attributeID, $objectID, $data)
+	static function storeMeta($objectID, $classAttributeID, $data)
 	{
-		$object = self::fetchByAttributeID($attributeID, $objectID);
+		$object = self::fetchByAttributeID($classAttributeID, $objectID);
 		
 		if (!$object)
 			$object = new saAttributeMeta();
@@ -38,7 +38,7 @@ class saAttributeMeta extends eZPersistentObject
 		if ($object)
 		{
 			$object->setAttribute('contentobject_id', $objectID);
-			$object->setAttribute('contentclassattribute_id', $attributeID);
+			$object->setAttribute('contentclassattribute_id', $classAttributeID);
 			
 
 			foreach ($data as $key => $value)
