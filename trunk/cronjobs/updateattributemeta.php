@@ -23,7 +23,7 @@ while ( $nodes = $parentNode->subTree( $params ) )
 
 	foreach ($nodes as $node)
 	{
-		$cli->output( $node->attribute('name') );
+		#$cli->output( $node->attribute('name') );
 		saAttributeMetaHandler::setMetaData( $node->attribute('object')->attribute('id') );
 	}
 
