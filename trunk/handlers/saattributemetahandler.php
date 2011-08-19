@@ -69,24 +69,8 @@ class saAttributeMetaHandler extends saEditHandlersBase
 
 			foreach ($metaDataAttributes as $attributeIdentifier)
 			{
-				$classAttribute = false;
-				
-				if ( is_numeric($attributeIdentifier) )
-				{
-					$classAttribute = eZContentClassAttribute::fetch($attributeIdentifier);
-				}
-				else
-				{
-				
-					list($classIdentifier, $attributeIdentifier) = explode('/', $attributeIdentifier);
-					$tmpClass = eZContentClass::fetchByIdentifier($classIdentifier);
 
-					if ($tmpClass)
-					{
-
-						$classAttribute = $tmpClass->fetchAttributeByIdentifier($attributeIdentifier);
-					}
-				}
+				$classAttribute = self::getClassAttribute( $attributeIdentifier );
 				
 				if ($classAttribute)
 				{
@@ -98,16 +82,14 @@ class saAttributeMetaHandler extends saEditHandlersBase
 						$data = array();
 						$data['has_content'] = $attribute->attribute('has_content') ? 1 : 0;
 
-
-//						if ( $attribute->attribute('content')->hasAttribute('is_valid') )
+						if ( $attribute->attribute('content')->hasAttribute('is_valid') )
 							$data['is_valid'] = $attribute->attribute('content')->attribute('is_valid') ? 1 : 0;
-							
+						else 
+							$data['is_valid'] = NULL;
+//$data['is_valid'] = NULL;
 						saAttributeMeta::storeMeta(
 							$object->attribute('id'),
 							$classAttribute->attribute('id'),
-							array(
-								'has_content' => $attribute->attribute('has_content') ? 1 : 0
-							)
 							$data
 						);
 
@@ -121,6 +103,26 @@ class saAttributeMetaHandler extends saEditHandlersBase
 		
 		}
 
+	}
+	
+	static function getClassAttribute( $attributeIdentifier )
+	{
+		if ( is_numeric($attributeIdentifier) )
+		{
+			return eZContentClassAttribute::fetch($attributeIdentifier);
+		}
+		else
+		{
+			list($classIdentifier, $attributeIdentifier) = explode('/', $attributeIdentifier);
+			$class = eZContentClass::fetchByIdentifier($classIdentifier);
+
+			if ($class)
+			{
+				return $class->fetchAttributeByIdentifier($attributeIdentifier);
+			}
+		}
+		
+		return false;
 	}
 
 }
