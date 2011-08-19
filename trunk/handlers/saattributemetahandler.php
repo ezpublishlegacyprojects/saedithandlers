@@ -95,12 +95,20 @@ class saAttributeMetaHandler extends saEditHandlersBase
 					{
 						$attribute = $dataMap[$classAttribute->attribute('identifier')];
 
+						$data = array();
+						$data['has_content'] = $attribute->attribute('has_content') ? 1 : 0;
+
+
+//						if ( $attribute->attribute('content')->hasAttribute('is_valid') )
+							$data['is_valid'] = $attribute->attribute('content')->attribute('is_valid') ? 1 : 0;
+							
 						saAttributeMeta::storeMeta(
 							$object->attribute('id'),
 							$classAttribute->attribute('id'),
 							array(
 								'has_content' => $attribute->attribute('has_content') ? 1 : 0
 							)
+							$data
 						);
 
 					}
