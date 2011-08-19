@@ -40,7 +40,6 @@ class saAttributeMeta extends eZPersistentObject
 			$object->setAttribute('contentobject_id', $objectID);
 			$object->setAttribute('contentclassattribute_id', $classAttributeID);
 			
-
 			foreach ($data as $key => $value)
 				$object->setAttribute($key, $value);
 
@@ -73,7 +72,11 @@ class saAttributeMeta extends eZPersistentObject
 														'default' => 0,
 														'required' => true
 													),
-									),
+											"is_valid" => array(
+														'name' => 'IsValid',
+														'datatype' => 'integer',
+														'required' => false
+													),									),
 									"keys" => array( 'contentobject_id', 'contentclassattribute_id' ),
 									"class_name" => "saAttributeMeta",
 									"sort" => array( "attribute_id" => "asc" ),
